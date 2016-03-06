@@ -177,7 +177,7 @@ def main():
     poller.connect()
     
     font_tit = ImageFont.truetype('/home/pi/disp_oled/NanumMyeongjo.ttf', 13)
-    font_tm = ImageFont.truetype('/home/pi/disp_oled/NanumMyeongjo.ttf', 13)
+    font_tm = ImageFont.truetype('/home/pi/disp_oled/Minecraftia-Regular.ttf', 13)
     while True:
         draw.rectangle((0,0,width,height), outline=0, fill=0)
         status = poller.poll()
