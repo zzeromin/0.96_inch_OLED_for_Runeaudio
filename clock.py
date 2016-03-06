@@ -1,0 +1,50 @@
+import max7219.led as led
+import time
+import random
+from datetime import datetime
+
+def date(device, deviceId):
+
+    now = datetime.now()
+    day = now.day
+    month = now.month
+    year = now.year - 2000
+
+    # Set day
+    device.letter(deviceId, 8, int(day / 10))     # Tens
+    device.letter(deviceId, 7, day % 10)          # Ones
+    device.letter(deviceId, 6, '-')               # dash
+    # Set day
+    device.letter(deviceId, 5, int(month / 10))     # Tens
+    device.letter(deviceId, 4, month % 10)     # Ones
+    device.letter(deviceId, 3, '-')               # dash
+    # Set day
+    device.letter(deviceId, 2, int(year / 10))     # Tens
+    device.letter(deviceId, 1, year % 10)     # Ones
+
+
+def clock(device, deviceId, seconds):
+
+    for _ in xrange(seconds):
+        now = datetime.now()
+        hour = now.hour
+        minute = now.minute
+        second = now.second
+        dot = second % 2 == 0                # calculate blinking dot
+        # Set hours
+        device.letter(deviceId, 1, int(hour / 10))     # Tens
+        device.letter(deviceId, 2, hour % 10)     # Ones
+        device.letter(deviceId, 5, " ", dot)
+        # Set minutes
+        device.letter(deviceId, 3, int(minute / 10))   # Tens
+        device.letter(deviceId, 4, minute % 10)        # Ones
+        time.sleep(1)
+
+
+device = led.sevensegment()
+device.clear(deviceId=0)
+clock(device, 0, seconds=60)
+
+
+
+
