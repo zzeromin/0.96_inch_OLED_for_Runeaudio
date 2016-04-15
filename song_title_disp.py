@@ -1,12 +1,20 @@
 # -*- coding: utf-8 -*- 
+# this code edited for rpi2 runeaudio by zzeromin
+# 1. album to artist
+# 2. fonts
+# 3. from PIL import Image
+
 import time
 
 import Adafruit_GPIO.SPI as SPI
 import Adafruit_SSD1306
 
-import Image
-import ImageDraw
-import ImageFont
+from PIL import Image
+from PIL import ImageDraw
+from PIL import ImageFont
+#import Image
+#import ImageDraw
+#import ImageFont
 
 from mpd import MPDClient, MPDError, CommandError
 import sys
@@ -99,10 +107,10 @@ class MPDPoller(object):
                 return(None)
             print(stats)
             print(song)
-            if 'album' not in song:
-                album = ""
+            if 'artist' not in song:
+                artist = ""
             else:
-                album = song['album']
+                artist = song['artist']
             
             if 'title' not in song:
                 title = ""
@@ -139,7 +147,7 @@ class MPDPoller(object):
         print(song)
         print(songplayed)
         eltime = "%d:%02d:%02d" % (h, m, s)
-        return({'album':album, 'title':title, 'eltime':eltime, 'volume':int(vol)})
+        return({'artist':artist, 'title':title, 'eltime':eltime, 'volume':int(vol)})
 
 
 
@@ -172,23 +180,23 @@ def main():
     bottom = height-padding
     x = padding
     # Load default font.
-    font_alb = ImageFont.truetype('/home/pi/disp_oled/NanumMyeongjo.ttf', 12)
+    font_alb = ImageFont.truetype('/root/setupfiles/piAu_volumio/NanumGothic.ttf', 13)
     poller = MPDPoller()
     poller.connect()
     
-    font_tit = ImageFont.truetype('/home/pi/disp_oled/NanumMyeongjo.ttf', 13)
-    font_tm = ImageFont.truetype('/home/pi/disp_oled/Minecraftia-Regular.ttf', 13)
+    font_tit = ImageFont.truetype('/root/setupfiles/piAu_volumio/NanumGothic.ttf', 13)
+    font_tm = ImageFont.truetype('/root/setupfiles/piAu_volumio/NanumGothic.ttf', 14)
     while True:
         draw.rectangle((0,0,width,height), outline=0, fill=0)
         status = poller.poll()
         if status is None:
             draw.rectangle((0,0,width,height), outline=0, fill=0)
             continue
-        album = status['album']
+        artist = status['artist']
         title = status['title']
         eltime = status['eltime']
         vol =status['volume']
-        print album
+        print artist
         print title
         print eltime
         print vol
@@ -198,11 +206,11 @@ def main():
             vol_str =vol_str + '+' 
         for i in range(10 - div_vol):
             vol_str = vol_str + '-'
-        draw.text((0, top), unicode(album).center(25,' '), font=font_alb, fill=255)
-        draw.text((0, top+20), unicode(title).center(25, ' '), font=font_tit, fill=255)
-        draw.text((0, top+35), eltime.center(27, ' '), font=font_tm, fill=255)
-        draw.text((0, top+46), vol_str, font=font_tm, fill=255)
-        draw.text((80, top+46),"vol " +  str(vol) , font=font_tm, fill=255)
+        draw.text((0, top), unicode(artist).center(20,' '), font=font_alb, fill=255)
+        draw.text((0, top+15), unicode(title).center(20, ' '), font=font_tit, fill=255)
+        draw.text((0, top+30), eltime.center(24, ' '), font=font_tm, fill=255)
+        draw.text((0, top+45), vol_str, font=font_tm, fill=255)
+        draw.text((80, top+45),"vol " +  str(vol) , font=font_tm, fill=255)
 
         disp.image(image)
         disp.display()
@@ -228,5 +236,3 @@ if __name__ == "__main__":
     # Catch the remaining exit errors
     except:
         sys.exit(0)
-
-
