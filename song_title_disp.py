@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*- 
-# this code edited for rpi2 runeaudio by zzeromin
+# reference: 
+# https://brunch.co.kr/@gogamza/6
+# https://github.com/haven-jeon/piAu_volumio
+# https://pypi.python.org/pypi/Pillow/2.1.0
+# installed python package: python2-pip, i2c-tools, python-imaging, python-mpd2, gcc
+# This code edited for rpi2 runeaudio by zzeromin
 # 1. album to artist
 # 2. fonts
 # 3. from PIL import Image
