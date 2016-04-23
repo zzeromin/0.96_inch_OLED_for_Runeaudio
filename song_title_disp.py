@@ -185,12 +185,12 @@ def main():
     bottom = height-padding
     x = padding
     # Load default font.
-    font_alb = ImageFont.truetype('/root/setupfiles/piAu_volumio/NanumGothic.ttf', 13)
+    font_alb = ImageFont.truetype('/root/0.96_inch_OLED_for_Runeaudio/NanumGothic.ttf', 13)
     poller = MPDPoller()
     poller.connect()
     
-    font_tit = ImageFont.truetype('/root/setupfiles/piAu_volumio/NanumGothic.ttf', 13)
-    font_tm = ImageFont.truetype('/root/setupfiles/piAu_volumio/NanumGothic.ttf', 14)
+    font_tit = ImageFont.truetype('/root/0.96_inch_OLED_for_Runeaudio/NanumGothic.ttf', 13)
+    font_tm = ImageFont.truetype('/root/0.96_inch_OLED_for_Runeaudio/NanumGothic.ttf', 14)
     while True:
         draw.rectangle((0,0,width,height), outline=0, fill=0)
         status = poller.poll()
